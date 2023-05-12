@@ -14,14 +14,6 @@ function SearchFormSubmitHandler(event) {
     //* retrieves input from user
     var searchInputEl = document.querySelector('#searchInput').value.toLowerCase().trim();
 
-    function renderWeather() {
-       var savedWeather = JSON.parse(localStorage.getItem(searchInputEl));
-        cityEl.textContent = savedWeather.city;
-        temperatureEl.textContent = 'Temp: ' + savedWeather.temperature + '° Fahrenheit ';
-        windEl.textContent = 'Wind: ' + savedWeather.wind + ' mph';
-        humidityEl.textContent = 'Humidity: ' + savedWeather.humidity + '%';  
-    }
-
     //* Added conditional to check to render results if it is already in local storage
     if(localStorage.getItem(searchInputEl)) {
         console.log('found city in storage!');
@@ -30,6 +22,15 @@ function SearchFormSubmitHandler(event) {
         console.log('finding a city through API!')
         searchWeatherApi(searchInputEl)
     }
+
+    //* renders weather on website
+    function renderWeather() {
+        var savedWeather = JSON.parse(localStorage.getItem(searchInputEl));
+         cityEl.textContent = savedWeather.city;
+         temperatureEl.textContent = 'Temp: ' + savedWeather.temperature + '° Fahrenheit ';
+         windEl.textContent = 'Wind: ' + savedWeather.wind + ' mph';
+         humidityEl.textContent = 'Humidity: ' + savedWeather.humidity + '%';  
+     }
 
     //* fetch the weather api
     function searchWeatherApi (searchInputEl) {
@@ -40,9 +41,11 @@ function SearchFormSubmitHandler(event) {
             .then(function (response) {
                 if (!response.ok) {
                     console.log("error!!!hehe")
+                    //! figure out how to do return so it does not continue the function
+                    return ;
+                } else {
+                    return response.json();
                 }
-
-                return response.json();
             })
 
             .then (function (weatherResults) {
