@@ -92,9 +92,10 @@ var storedCities = JSON.parse(localStorage.getItem('city')) || [];
             for (let i = 0; i < storedCities.length; i++) {
                 var storedCityName = storedCities[i];
                 var storedCityBtn = document.createElement('Button');
-                storedCityBtn.classList.add('btn', 'btn-secondary');
+                storedCityBtn.classList.add('btn', 'btn-secondary', 'w-75', 'm-1');
                 storedCityBtn.append(storedCityName);
-                recentSearchList.append(storedCityBtn);
+                recentSearchList.appendChild(storedCityBtn);
+
             }
         }
         //* runs display function when page loads instead of waiting for event listeners
