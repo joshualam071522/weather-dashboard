@@ -57,11 +57,56 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
         //* passes in data to function that adds city to recent search
         addCityRecentSearch(data.name)
     }
-    //* renders forecast data
+    //* Fetches forecast API
+    function searchForecastApi (searchInput) {
+        const forecastQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ searchInput +'&appid=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial'
+
+        fetch(forecastQueryUrl)
+            .then(function (response) {
+                if (!response.ok) {
+                    //TODO add modal saying cannot find city etc.
+                    return;
+                } else {
+                    return response.json();
+                }
+            })
+            .then (function (data) {
+                if (!data) {
+                    console.log('oops! data could not be found');
+                    return;
+                    //TODO add modal saying cannot find city etc.
+                } else {
+                    console.log(data);
+                    renderForecast(data);
+                }
+            })
+        }
+    //* function to render forecast
     function renderForecast(data) {
         
-    }
+        //* data returns array of 40 items back
+        console.log(data.list);
 
+        //* sets the innerhtml for forecast empty so it does not keep the previous search's forecast
+        forecastEl.innerHTML = "";
+        
+        //* sets a for each for each item in the array
+        data.list.forEach((item, index) => {
+            //* sets if function so it does not render all 40 items in the array, only need 1 for each of the 5 days, not 8 for each
+            if (index % 8 === 0) {
+            //* creates html for each item
+                forecastEl.innerHTML += 
+                `<div class = "m-3 p-3">
+                    <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="${item.weather[0].description}">
+                    //* date constructor and to localeDateString method to format the date for each forecast
+                    <h4>${new Date(item.dt * 1000).toLocaleDateString()}</h4>
+                    <p>Temp: ${item.main.temp}°F</p>
+                    <p>Humidity: ${item.main.humidity}%</p>
+                    <p>Wind: ${item.wind.speed} mph</p>
+                </div>` 
+            }
+        })
+}
         function addCityRecentSearch(cityName) {
             
             //* Checks if index value is -1 because default value for error in indexOf method is -1
@@ -111,5 +156,6 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
 //TODO add event listener for recent searches
 searchFormEl.addEventListener('submit', function(event) {
     event.preventDefault();
-    searchWeatherApi(searchInputEl.value.trim())
+    searchWeatherApi(searchInputEl.value.trim());
+    searchForecastApi(searchInputEl.value.trim());
 });
