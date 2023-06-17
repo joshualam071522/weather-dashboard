@@ -140,6 +140,20 @@ function displayRecentSearch() {
     }
 }
 
+//* function to show last searched city to render when loading the page again
+function renderLastSearch() {
+    if (storedCities.length < 1) {
+        return;
+    } else {
+        searchWeatherApi(storedCities[0]);
+        searchForecastApi(storedCities[0]);
+    }
+    
+}
+
+//* calls function to show last searched city
+renderLastSearch();
+
 //* runs display function when page loads instead of waiting for event listeners
 displayRecentSearch();
 
@@ -156,3 +170,5 @@ recentSearchList.addEventListener('click', function (event){
     searchWeatherApi(recentSearchInput);
     searchForecastApi(recentSearchInput);
 });
+
+
