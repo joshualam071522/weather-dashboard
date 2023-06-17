@@ -33,7 +33,7 @@ function searchWeatherApi (searchInput) {
         })
         .then (function (data) {
             if (!data) {
-                console.log('oops!');
+                console.log('oops! Weather data could not be found!');
                 return;
 
             } else {
@@ -79,7 +79,7 @@ function searchForecastApi (searchInput) {
         })
         .then (function (data) {
             if (!data) {
-                console.log('oops! Forecast data could not be found');
+                console.log('oops! Forecast data could not be found!');
                 return;
             } else {
                 renderForecast(data);
