@@ -10,17 +10,22 @@ const searchFormEl = document.querySelector('#search-form');
 const searchInputEl = document.querySelector('#searchInput')
 const weatherDetailsList = document.querySelector('#weatherDetailsList');
 
+//* error modal
+const myModal = new bootstrap.Modal('.modal');
+
 //* local storage for recent searches. It will be empty array if there are no recent searches
 const storedCities = JSON.parse(localStorage.getItem('city')) || [];
 
 //* fetch the weather api
 function searchWeatherApi (searchInput) {
     
-    const weatherQueryURL = 'https://api.openweathermap.org/data/2.5/weather?q='+ searchInput +'&APPID=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial'
+    const weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&APPID=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial`
     
     fetch(weatherQueryURL)
         .then(function (response) {
             if (!response.ok) {
+                //* shows error modal if cannot find city
+                myModal.show();
                 return;
             } else {
                 return response.json();
@@ -50,7 +55,7 @@ function renderWeather(data) {
     //* creates weather icon and appends it next to city name;
     const weatherIconQuery = data.weather[0].icon;
     const weatherIconEl = document.createElement('img');
-    weatherIconEl.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconQuery + '.png');
+    weatherIconEl.setAttribute('src', `https://openweathermap.org/img/wn/${weatherIconQuery}.png`);
     weatherIconEl.setAttribute('alt', data.weather[0].description);
     document.getElementById('city').appendChild(weatherIconEl);
     
@@ -60,18 +65,21 @@ function renderWeather(data) {
 
 //* Fetches forecast API
 function searchForecastApi (searchInput) {
-    const forecastQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ searchInput +'&appid=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial'
+    const forecastQueryUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchInput}&appid=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial`
 
     fetch(forecastQueryUrl)
         .then(function (response) {
-            if (!response.ok) {                return;
+            if (!response.ok) {
+                //* shows error modal if cannot find city
+                myModal.show(); 
+                return;
             } else {
                 return response.json();
             }
         })
         .then (function (data) {
             if (!data) {
-                console.log('oops! data could not be found');
+                console.log('oops! Forecast data could not be found');
                 return;
             } else {
                 renderForecast(data);
@@ -171,4 +179,12 @@ recentSearchList.addEventListener('click', function (event){
     searchForecastApi(recentSearchInput);
 });
 
+//* error modal close button
+const modalButton = document.getElementById('modalbutton')
+
+//* event listener to close error modal by close button
+modalButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    myModal.hide();
+})
 
