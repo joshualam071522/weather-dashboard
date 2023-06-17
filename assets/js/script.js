@@ -13,8 +13,6 @@ const weatherDetailsList = document.querySelector('#weatherDetailsList');
 //* local storage for recent searches. It will be empty array if there are no recent searches
 const storedCities = JSON.parse(localStorage.getItem('city')) || [];
 
-console.log(dayjs().format('M/DD/YY'));
-
     //* fetch the weather api
     function searchWeatherApi (searchInput) {
         
@@ -121,7 +119,7 @@ console.log(dayjs().format('M/DD/YY'));
             }
 
             //* pushes the city to the end of the array
-            storedCities.push(cityName);
+            storedCities.unshift(cityName);
 
             //* checks if there are more than 8 cities. If so, will remove the first object of the array
             if (storedCities.length > 8) {
@@ -153,12 +151,29 @@ console.log(dayjs().format('M/DD/YY'));
         //* runs display function when page loads instead of waiting for event listeners
         displayRecentSearch();
     
+        function renderRecentSearch(event) {
+            const recentSearchInput = event.target.textContent.toLowerCase();
+            searchWeatherApi(recentSearchInput);
+            searchForecastApi(recentSearchInput);
+        }
 
-//TODO searchForecastAPI
-//TODO render forecast function
-//TODO add event listener for recent searches
+
+        recentSearchList.addEventListener('click', function (event){
+                const recentSearchInput = event.target.textContent.toLowerCase();
+                searchWeatherApi(recentSearchInput);
+                searchForecastApi(recentSearchInput);
+        });
+
 searchFormEl.addEventListener('submit', function(event) {
     event.preventDefault();
     searchWeatherApi(searchInputEl.value.trim());
     searchForecastApi(searchInputEl.value.trim());
+});
+
+//* added event listener for recent search
+recentSearchList.addEventListener('click', function (event){
+    event.preventDefault();
+    const recentSearchInput = event.target.textContent.toLowerCase();
+    searchWeatherApi(recentSearchInput);
+    searchForecastApi(recentSearchInput);
 });
