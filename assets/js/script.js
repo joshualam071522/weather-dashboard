@@ -140,7 +140,7 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
                 const storedCityName = storedCities[i];
                 const storedCityBtn = document.createElement('Button');
                 storedCityBtn.classList.add('btn', 'btn-light', 'w-75', 'm-1');
-                storedCityBtn.innerHTML = `<b>${storedCityName}</b>`;
+                storedCityBtn.innerHTML = storedCityName;
                 recentSearchList.appendChild(storedCityBtn);
 
             }

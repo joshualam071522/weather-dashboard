@@ -1,4 +1,20 @@
 body {
-    background-image: linear-gradient(rgb(175, 217, 245), rgb(248, 248, 246))
+    background-image: linear-gradient(rgb(175, 217, 245), rgb(248, 248, 246));
+    height:fit-content;
 }
 
+@media screen and (min-width: 0px) {
+    #weatherDetailsList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #weatherDetailsList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
