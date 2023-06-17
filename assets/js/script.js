@@ -1,21 +1,21 @@
-var searchButtonEl = document.querySelector('#searchButton');
-var recentSearchList = document.querySelector('#recentSearch');
-var cityEl = document.querySelector('#city');
-var temperatureEl = document.querySelector('#temperature');
-var windEl = document.querySelector('#wind');
-var humidityEl = document.querySelector('#humidity');
-var forecastEl = document.querySelector('#forecast');
-var searchFormEl = document.querySelector('#search-form');
-var searchInputEl = document.querySelector('#searchInput')
-var weatherDetailsList = document.querySelector('#weatherDetailsList');
+const searchButtonEl = document.querySelector('#searchButton');
+const recentSearchList = document.querySelector('#recentSearch');
+const cityEl = document.querySelector('#city');
+const temperatureEl = document.querySelector('#temperature');
+const windEl = document.querySelector('#wind');
+const humidityEl = document.querySelector('#humidity');
+const forecastEl = document.querySelector('#forecast');
+const searchFormEl = document.querySelector('#search-form');
+const searchInputEl = document.querySelector('#searchInput')
+const weatherDetailsList = document.querySelector('#weatherDetailsList');
 
 //* local storage for recent searches. It will be empty array if there are no recent searches
-var storedCities = JSON.parse(localStorage.getItem('city')) || [];
+const storedCities = JSON.parse(localStorage.getItem('city')) || [];
 
     //* fetch the weather api
     function searchWeatherApi (searchInput) {
         
-        var weatherQueryURL = 'https://api.openweathermap.org/data/2.5/weather?q='+ searchInput +'&APPID=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial'
+        const weatherQueryURL = 'https://api.openweathermap.org/data/2.5/weather?q='+ searchInput +'&APPID=3e7fe8a93b7d45df7ddde9af30d1b389&units=imperial'
         
         fetch(weatherQueryURL)
             .then(function (response) {
@@ -48,8 +48,8 @@ var storedCities = JSON.parse(localStorage.getItem('city')) || [];
         humidityEl.textContent = 'Humidity: ' + data.main.humidity + '%';
         
         //* creates weather icon and appends it next to city name;
-        var weatherIconQuery = data.weather[0].icon;
-        var weatherIconEl = document.createElement('img');
+        const weatherIconQuery = data.weather[0].icon;
+        const weatherIconEl = document.createElement('img');
         weatherIconEl.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconQuery + '.png');
         weatherIconEl.setAttribute('alt', data.weather[0].description);
         document.getElementById('city').appendChild(weatherIconEl);
@@ -62,7 +62,7 @@ var storedCities = JSON.parse(localStorage.getItem('city')) || [];
             
             //* Checks if index value is -1 because default value for error in indexOf method is -1
             //* Doing so prevents duplicate cities in the array
-            var checkIndexOfCity = storedCities.indexOf(cityName);
+            const checkIndexOfCity = storedCities.indexOf(cityName);
     
             if (checkIndexOfCity !== -1) {
                 storedCities.splice(checkIndexOfCity, 1);
@@ -90,8 +90,8 @@ var storedCities = JSON.parse(localStorage.getItem('city')) || [];
 
             //* creates a button with name of the city for each city in the local storage array
             for (let i = 0; i < storedCities.length; i++) {
-                var storedCityName = storedCities[i];
-                var storedCityBtn = document.createElement('Button');
+                const storedCityName = storedCities[i];
+                const storedCityBtn = document.createElement('Button');
                 storedCityBtn.classList.add('btn', 'btn-secondary', 'w-75', 'm-1');
                 storedCityBtn.append(storedCityName);
                 recentSearchList.appendChild(storedCityBtn);
