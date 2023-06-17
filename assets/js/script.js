@@ -57,6 +57,10 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
         //* passes in data to function that adds city to recent search
         addCityRecentSearch(data.name)
     }
+    //* renders forecast data
+    function renderForecast(data) {
+        
+    }
 
         function addCityRecentSearch(cityName) {
             
