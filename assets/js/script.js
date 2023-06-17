@@ -165,14 +165,14 @@ renderLastSearch();
 //* runs display function when page loads instead of waiting for event listeners
 displayRecentSearch();
 
-searchFormEl.addEventListener('submit', function(event) {
+searchFormEl.addEventListener('submit', (event) => {
     event.preventDefault();
     searchWeatherApi(searchInputEl.value.trim());
     searchForecastApi(searchInputEl.value.trim());
 });
 
 //* added event listener for recent search
-recentSearchList.addEventListener('click', function (event){
+recentSearchList.addEventListener('click', (event) => {
     event.preventDefault();
     const recentSearchInput = event.target.textContent.toLowerCase();
     searchWeatherApi(recentSearchInput);
