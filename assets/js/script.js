@@ -1,5 +1,6 @@
 const searchButtonEl = document.querySelector('#searchButton');
 const recentSearchList = document.querySelector('#recentSearch');
+const dateEl = document.querySelector('#date');
 const cityEl = document.querySelector('#city');
 const temperatureEl = document.querySelector('#temperature');
 const windEl = document.querySelector('#wind');
@@ -11,6 +12,8 @@ const weatherDetailsList = document.querySelector('#weatherDetailsList');
 
 //* local storage for recent searches. It will be empty array if there are no recent searches
 const storedCities = JSON.parse(localStorage.getItem('city')) || [];
+
+console.log(dayjs().format('M/DD/YY'));
 
     //* fetch the weather api
     function searchWeatherApi (searchInput) {
@@ -42,6 +45,7 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
     function renderWeather(data) {
         
         //* retrieves weather details using data from fetch
+        dateEl.textContent = dayjs.unix(data.dt).format('M/DD/YY');
         cityEl.textContent = data.name;
         temperatureEl.textContent = 'Temp: ' + data.main.temp + '° Fahrenheit ';
         windEl.textContent = 'Wind: ' + data.wind.speed + ' mph';
@@ -96,10 +100,9 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
             if (index % 8 === 0) {
             //* creates html for each item
                 forecastEl.innerHTML += 
-                `<div class = "m-3 p-3">
+                `<div class="w-auto text-center m-3 p-3 border-secondary">
                     <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="${item.weather[0].description}">
-                    //* date constructor and to localeDateString method to format the date for each forecast
-                    <h4>${new Date(item.dt * 1000).toLocaleDateString()}</h4>
+                    <h4>${dayjs(item.dt_txt).format('M/DD/YY')}</h4>
                     <p>Temp: ${item.main.temp}°F</p>
                     <p>Humidity: ${item.main.humidity}%</p>
                     <p>Wind: ${item.wind.speed} mph</p>
