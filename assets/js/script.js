@@ -45,7 +45,7 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
         //* retrieves weather details using data from fetch
         dateEl.textContent = dayjs.unix(data.dt).format('M/DD/YY');
         cityEl.textContent = data.name;
-        temperatureEl.textContent = 'Temp: ' + data.main.temp + '° Fahrenheit ';
+        temperatureEl.textContent = 'Temperature: ' + data.main.temp + '°F ';
         windEl.textContent = 'Wind: ' + data.wind.speed + ' MPH';
         humidityEl.textContent = 'Humidity: ' + data.main.humidity + '%';
         
