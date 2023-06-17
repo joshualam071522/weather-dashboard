@@ -46,7 +46,7 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
         dateEl.textContent = dayjs.unix(data.dt).format('M/DD/YY');
         cityEl.textContent = data.name;
         temperatureEl.textContent = 'Temp: ' + data.main.temp + '° Fahrenheit ';
-        windEl.textContent = 'Wind: ' + data.wind.speed + ' mph';
+        windEl.textContent = 'Wind: ' + data.wind.speed + ' MPH';
         humidityEl.textContent = 'Humidity: ' + data.main.humidity + '%';
         
         //* creates weather icon and appends it next to city name;
@@ -85,25 +85,22 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
         }
     //* function to render forecast
     function renderForecast(data) {
-        
-        //* data returns array of 40 items back
-        console.log(data.list);
 
         //* sets the innerhtml for forecast empty so it does not keep the previous search's forecast
         forecastEl.innerHTML = "";
         
         //* sets a for each for each item in the array
-        data.list.forEach((item, index) => {
+        data.list.forEach((data, index) => {
             //* sets if function so it does not render all 40 items in the array, only need 1 for each of the 5 days, not 8 for each
             if (index % 8 === 0) {
             //* creates html for each item
                 forecastEl.innerHTML += 
                 `<div class="w-auto text-center m-3 p-3 border-secondary">
-                    <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="${item.weather[0].description}">
-                    <h4>${dayjs(item.dt_txt).format('M/DD/YY')}</h4>
-                    <p>Temp: ${item.main.temp}°F</p>
-                    <p>Humidity: ${item.main.humidity}%</p>
-                    <p>Wind: ${item.wind.speed} mph</p>
+                    <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
+                    <h4><b>${dayjs(data.dt_txt).format('M/DD/YY')}</b></h4>
+                    <p><b>Temp: ${data.main.temp}°F</b></p>
+                    <p><b>Humidity: ${data.main.humidity}%</b></p>
+                    <p><b>Wind: ${data.wind.speed} MPH</b></p>
                 </div>` 
             }
         })
@@ -142,8 +139,8 @@ const storedCities = JSON.parse(localStorage.getItem('city')) || [];
             for (let i = 0; i < storedCities.length; i++) {
                 const storedCityName = storedCities[i];
                 const storedCityBtn = document.createElement('Button');
-                storedCityBtn.classList.add('btn', 'btn-secondary', 'w-75', 'm-1');
-                storedCityBtn.append(storedCityName);
+                storedCityBtn.classList.add('btn', 'btn-light', 'w-75', 'm-1');
+                storedCityBtn.innerHTML = `<b>${storedCityName}</b>`;
                 recentSearchList.appendChild(storedCityBtn);
 
             }

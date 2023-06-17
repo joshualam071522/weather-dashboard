@@ -10,41 +10,44 @@
 <body class="text-justify m-4">
     <nav class="navbar">
         <div class="container-fluid d-flex justify-content-center">
-            <h1>Weather Dashboard</h1>
+            <h1>Weather Dashboard ⛅</h1>
           </a>
         </div>
       </nav>
       <br>
     <section class="d-flex w-100 h-100 row">
         <div class="col-3">
-            <h1 class="text-center">Search For A City:</h1>
-            <form id="search-form" class= 'd-flex flex-column align-items-center'>
-                <div class="input-group mb-3">
+            <h1 class="text-center">Search For A City</h1>
+            <br>
+            <form id="search-form" class= 'd-flex flex-column align-items-center mb-4'>
+                <div class="input-group">
                     <input id=searchInput type="text" class="form-control w-75 mx-3 rounded-0" placeholder="Los Angeles" aria-label="Username">
                     <button id="searchButton" class="btn btn-primary w-100 m-3 rounded" type="submit">Search</button>
                   </div>
             </form>
-            <hr class = m-3>
-            <h3 class="text-center">Recently Searched Cities:</h3>
+            <hr>
+            <h3 class="text-center">Recently Searched Cities</h3>
+            <br>
             <div id="recentSearch" class="text-center d-flex flex-column mb-3 align-items-center">
                 
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-9  min-vw-50">
             <div id='weatherDetailsList'class="container-fluid">
-                <h2 id="date">Date:</h2>
+                <h2 id="date"></h2>
                 <br>
-                <h2 id="city">City Name</h2>
+                <h2 id="city"></h2>
                 <br>
-                <h4 id="temperature">Temp:</h4>
+                <h4 id="temperature"></h4>
                 <br>
-                <h4 id="wind">Wind:</h4>
+                <h4 id="wind"></h4>
                 <br>
-                <h4 id="humidity">Humidity:</h4>
+                <h4 id="humidity"></h4>
             </div>
             <br>
-            <h3 class="d-flex justify-content-center">5-Day Forecast:</h3>
-            <div id="forecast" class="container-fluid d-flex flex-row flex-wrap border-top border-secondary justify-content-center">
+            <h3 class="d-flex justify-content-center">5-Day Forecast</h3>
+            <hr>
+            <div id="forecast" class="container-fluid d-flex flex-row flex-wrap justify-content-center">
         
             </div>
             
