@@ -2,7 +2,7 @@
 
 # Work Day Scheduler
 
-![My Image](Assets/images/weatherdashboarddemo.png)
+![My Image](assets/images/weatherdashboarddemo.png)
 
 Link to live website: https://joshualam071522.github.io/weather-dashboard/
 
